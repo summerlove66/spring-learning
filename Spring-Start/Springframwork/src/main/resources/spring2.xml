@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    <bean id="carr" class="com.park.model.Car" >
+        <property name="seats" value="10"/>
+
+    </bean>-->
+
+    <bean  class="com.park.model.Person" name="p1" >
+        <property name="names">
+            <list merge="true">
+                <value>beautiful</value>
+            </list>
+        </property>
+
+        <property  name="age"   value="${person.age}" />
+
+    </bean>
+
+
+ <bean class="com.park.model.Person" name="driver" >
+     <qualifier value="xxxx"/>
+        <property name="names">
+            <list >
+                <value>kaixin</value>
+                <value>happy</value>
+            </list>
+
+        </property>
+        <property name="age" value="20"/>
+    </bean>
+
+
+
+</beans>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <!--连接池配置-->
+    <bean id="dataSources" class="${spring.datasource.type}">
+
+        <property name="username" value="${spring.datasource.username}"/>
+        <property name="password" value="${spring.datasource.password}"/>
+        <property name="url" value="${spring.datasource.url}"/>
+        <property name="maxActive" value="5"/>
+    </bean>
+
+    <!--dao层实现配置-->
+    <bean id="acctDao" class="com.park.Dao.AcctDaoImpl">
+        <property name="dataSource" ref="dataSources"/>
+    </bean>
+    <context:component-scan base-package="com.park.*"/>
+    <context:property-placeholder location="classpath:database_info.properties"/>
+
+    <!--service 配置-->
+    <bean id="acctService" class="com.park.Service.AcctServiceImpl">
+
+        <property name="acctDao" ref="acctDao"/>
+    </bean>
+
+    <!--事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSources"/>
+    </bean>
+
+    <!--配置service代理-->
+    <bean id="acctServiceTransaction" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+
+        <property name="target" ref="acctService"/>
+        <!--注入事务管理器-->
+        <property name="transactionManager" ref="transactionManager"/>
+        <!--  注入事务属性-->
+        <property name="transactionAttributes">
+            <!--*PROPAGATION 事务传播
+            *ISOLATION 事务隔离级别
+            *readOnly
+            * -Exception 发送哪些异常回滚事务
+            * +Exception 发送哪些异常不回滚-->
+
+            <props>
+                <prop key="transfer">PROPAGATION_REQUIRED</prop>
+
+            </props>
+        </property>
+
+    </bean>
+
+
+    <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="transactionManager"/>
+</beans>

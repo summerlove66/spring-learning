@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="p1" class="com.park.model.Person">
+        <property name="name" value="p1"/>
+        <property name="age" value="11"/>
+    </bean>
+    <bean id="t1" class="com.park.model.Teacher">
+        <property name="age" value="35"/>
+        <property name="name" value="t1"/>
+    </bean>
+
+
+
+    <bean id="studentService" class="com.park.service.StudentServiceImpl" />
+
+    <bean id="hijack" class="com.park.aop.HijackAroundMethod"/>
+
+    <bean id="student" class="com.park.model.Student" >
+        <property name="person" ref="p1"/>
+    </bean>
+
+
+    <aop:config>
+        <aop:pointcut id="pt" expression="execution(* com.park.model.Person+.*())"/>
+        <aop:advisor advice-ref="hijack" pointcut-ref="pt"/>
+
+    </aop:config>
+
+
+ <!--   &lt;!&ndash;半自动代理&ndash;&gt;
+    <bean id="studentProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="studentService"/>
+        <property name="interceptorNames">
+            <list>
+                <value>hijack</value>
+            </list>
+        </property>
+
+    </bean>
+-->
+
+</beans>
