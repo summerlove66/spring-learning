@@ -21,10 +21,10 @@ public class Car implements Vehicle ,ApplicationContextAware,ApplicationEventPub
     public Car() {
     }
 
-    public Car(Person p1,  int seats) {
-        this.driver = p1;
-        this.seats =seats;
-    }
+//    public Car(Person driver) {
+//        this.driver = driver;
+//        this.seats =19;
+//    }
 
 
     public Person getDriver() {

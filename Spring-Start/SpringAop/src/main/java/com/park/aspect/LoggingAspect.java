@@ -6,6 +6,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Component
 @Aspect
 public class LoggingAspect {
@@ -22,6 +25,7 @@ public class LoggingAspect {
         System.out.println(proceedingJoinPoint.getTarget());
         System.out.println(proceedingJoinPoint.getThis());
         System.out.println(proceedingJoinPoint.getSignature());
+       System.out.println(proceedingJoinPoint.getArgs()[0]);
         System.out.println("完成");
     }
 

@@ -19,6 +19,7 @@
 
     </bean>
 
+
  <context:component-scan base-package="com.park.model"/>
     <import resource="spring2.xml" />
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

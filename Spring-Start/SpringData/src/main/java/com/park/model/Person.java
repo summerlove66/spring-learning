@@ -1,7 +1,11 @@
 package com.park.model;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class Person {
+    @Value("jack ma")
     private String name;
+    @Value("36")
     private int age;
 
     public Person(String name, int age) {

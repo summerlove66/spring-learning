@@ -32,7 +32,7 @@ public class Car {
                 ", driver=" + driver +
                 '}';
     }
-
+    @LoggingProcess
     public void drive(String address) {
         System.out.println(driver.getName()+ "will drive to " +address);
     }

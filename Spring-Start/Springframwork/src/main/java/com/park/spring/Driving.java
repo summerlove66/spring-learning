@@ -21,12 +21,12 @@ public class Driving implements Vehicle {
       //  BeanFactory factory = new ClassPathXmlApplicationContext("spring-conf.xml");
         AbstractApplicationContext factory = new ClassPathXmlApplicationContext("spring-conf.xml");
 
+
+
         factory.registerShutdownHook();
         Car c1 = (Car) factory.getBean("carr");
-
-//        System.out.println(c1.getApplicationContext().getBean("driving"));
         c1.drive();
-
+//
 
     }
 
